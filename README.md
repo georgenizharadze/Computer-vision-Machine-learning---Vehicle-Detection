@@ -1,8 +1,17 @@
-# Vehicle Detection
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+# Vehicle Detection 
 
 
-In this project, your goal is to write a software pipeline to detect vehicles in a video (start with the test_video.mp4 and later implement on full project_video.mp4), but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
+### The goals / steps of this project
+
+The utlimate goal of this project is to write a software pipeline to detect vehicles in a video (start with the test_video.mp4 and later implement on full project_video.mp4). The more detailed goals and steps are as follows: 
+
+* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a Linear SVM classifier
+* Optionally, a color transform can be performed and binned color features, as well as histograms of color, can be added to the HOG feature vector.
+* Note: for the first two steps it's important to normalize the features and randomize a selection for training and testing.
+* Implement a sliding-window technique and use the trained classifier to search for vehicles in images.
+* Run the pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
+* Estimate a bounding box for vehicles detected.
+  
 
 Creating a great writeup:
 ---
@@ -31,3 +40,23 @@ Some example images for testing your pipeline on single frames are located in th
 **As an optional challenge** Once you have a working pipeline for vehicle detection, add in your lane-finding algorithm from the last project to do simultaneous lane-finding and vehicle detection!
 
 **If you're feeling ambitious** (also totally optional though), don't stop there!  We encourage you to go out and take video of your own, and show us how you would implement this project on a new video!
+=======
+# Computer vision and Machine learning - Vehicle Detection Project
+
+## The goals / steps of this project are the following:
+
+* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
+* Optionally, apply a color transform and append binned color features, as well as histograms of color, to the HOG feature vector. 
+* Note: for the first two steps it's important to normalize the features and randomize a selection for training and testing.
+* Implement a sliding-window technique and use the trained classifier to search for vehicles in images.
+* Run the pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
+* Estimate a bounding box for vehicles detected.
+
+## Here I will consider the project goals and steps individually and describe how I addressed each point in my implementation.
+
+### Histogram of Oriented Gradients (HOG)
+
+####1. Extraction of HOG features from the training images
+
+I read in all the labeled vehicle and non-vehicle file names, with the use of the glob function, from the GTI Vehicle Image Database files. This gave a total of 8,792 and 3,900 vehicle and non-vehicle images, respectively. Below is an example of 
+>>>>>>> d1e00dd00b2154100579b0cd943a69bfbf2284fa
