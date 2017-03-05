@@ -15,4 +15,4 @@
 
 ####1. Extraction of HOG features from the training images
 
-
+I read in all the labeled vehicle and non-vehicle file names, with the use of the glob function, from the GTI Vehicle Image Database files. This gave a total of 8,792 and 3,900 vehicle and non-vehicle images, respectively. Below is an example of 
