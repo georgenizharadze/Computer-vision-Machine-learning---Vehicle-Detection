@@ -12,6 +12,20 @@ The utlimate goal of this project is to write a software pipeline to detect vehi
 * Run the pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
   
+Below I will address each of the above points.
+
+[//]: # (Image References)
+[image1]: ./output_images/sample_car_not_car.jpg
+
+
+### HOG feature extraction 
+
+First, I used the glob function and read in all the vehicle and non-vehicle image file names from the GTI Vehicle Database. I ended up with a total of 8,792 and 3,900 vehicle and non-vehicle image files, respectively. The code for this step is contained in the first section of my Vehicle-detection.ipynb Jupyter notebook. 
+
+Below is an example of randomly selected vehicle and non-vehicle images:
+
+![alt text][image1]
+
 
 Creating a great writeup:
 ---
