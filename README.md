@@ -48,6 +48,7 @@ I trained the SVC classifier on 90% of the vehicle (8,792) and non-vehicle (8,96
 * Color histogram bins: 16   
 
 With these parameters, the total number of features ended up at 6,108. All features were scaled / normalized at zero mean and unit variance prior to training. The classifier training and testing code can by found in section 2 (titled _Classifier Training_) of my Jupyter Notebook.
+Note: in classifier training, as well as subsequent procedures, I used `cv2.imread` for reading in all PNG and JPG images, to ensure consistency in scale (0 - 255). Also, in color conversions I used BGR2... parameter, as arrays read via `cv2.imread` come in BGR sequence. 
 
 ### Sliding window search
 
@@ -57,6 +58,16 @@ I applied these functions and looped through the test images in the test\_images
 
 ![alt text][image5]
 
-Then I implemented HOG sub-sampling window search, where I extract HOG features from the entire, or, rather, bottom half of the image and then sub-sample smaller rectangular areas (windows), adding color spatial and color histogram features and performing class prediction. In the same process, we implement a 'heatmap' to better highlight multiple overlapping detections, which are associated with a higher probability that the area actually contains a vehicle. Finally, I applied a threshold to the heatmap to eliminate values at or below 2, i.e. areas where only one or two positive classifications were made, as these are likely false positives. I used the Scipy's `label` function to find the countours of likely individual vehicles. The images below demonstrate that this procedure yielded a good classificaiton and eliminate fals positives. 
+### HOG sub-sampling window search, heatmap thresholding and vehicle labeling 
+
+Then I implemented HOG sub-sampling window search, where I extract HOG features from the entire, or, rather, bottom half of the image and then sub-sample smaller rectangular areas (windows), adding color spatial and color histogram features and performing class prediction. In the same process, we implement a 'heatmap' to better highlight multiple overlapping detections, which are associated with a higher probability that the area actually contains a vehicle. Finally, I applied a threshold to the heatmap to eliminate values at or below 2, i.e. areas where only one or two positive classifications were made, as these are likely false positives. I used the Scipy's `label` function to find the countours of likely individual vehicles. The images below demonstrate that this procedure yielded a good classificaiton and eliminate false positives. 
 
 ![alt text][image6]
+
+### Video implementation 
+
+For the video pipeline I combined the HOG sub-sampling window search, heatmap thresholding and vehicle labeling procedures. I also defined a global variable for storing the summed heatmap of the latest 12 frames, to smooth the output boxes. The output video can be found in the project\_video\_output.mp4 file in the folder. 
+
+### Discussion 
+
+It proved very difficult to eliminate from the project video output the false positive detections. The left-hand side road barrier and rail was continuous misclassified as a vehilce. This is a classifier issue and can be addressed by including more instances in the training data set, as well as additional classifier tuning. However, it should be noted that I successfully eliminate false positives from the still images. The bufferring and thresholding of the heatmap over the latest 12 frames did not really help very much in the video. I also notices that the classifier had a more difficult time spotting the white vehicle, compared to the dark blue one. This can be addressed by using different color space conversions. For the still test images I used YCrCb and LUV spaces and both worked Ok. For the video, I used YCrCb space, which was slightly better than LUV. 
