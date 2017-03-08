@@ -20,6 +20,7 @@ Below I will address each of the above points.
 [image3]: ./output_images/car_not_car_HOGs2.jpg
 [image4]: ./output_images/car_not_car_HOGs3.jpg
 [image5]: ./output_images/sliding_window_search.jpg 
+[image6]: ./output_images/labels_thresholded_heatmap.jpg
 
 
 
@@ -50,8 +51,12 @@ With these parameters, the total number of features ended up at 6,108. All featu
 
 ### Sliding window search
 
-The functions which I used for sliding window search are defined under the section _Sliding Window Search_ in my Jupyter Notebook. These are three functions, `slide_window`, which inspects the image step by step by sliding a square window across and down, `search_windows`, which runs a class (vehicle vs. non-vehicle) prediction with the previously trained classifier on each area of the image delineated by the window and `draw_boxes`, which draws a rectangle around the window classified as a vehicle. 
+The functions which I used for sliding window search are defined under the section _Sliding window search_ in my Jupyter Notebook. These are three functions, `slide_window`, which inspects the image step by step by sliding a square window across and down, `search_windows`, which runs a class (vehicle vs. non-vehicle) prediction with the previously trained classifier on each area of the image delineated by the window and `draw_boxes`, which draws a rectangle around the window classified as a vehicle. 
 
 I applied these functions and looped through the test images in the test\_images folder. I used an overlap value of 0.5 between windows. To optimize the classification process, I (i) restricted the search to the bottom half of the image, i.e. the road and (ii) simultaneously searched with three different window sizes, (64, 64), (96, 96) and (112, 112), to capture both closer and farther vehicles. Below are the results:
 
 ![alt text][image5]
+
+Then I implemented HOG sub-sampling window search, where I extract HOG features from the entire, or, rather, bottom half of the image and then sub-sample smaller rectangular areas (windows), adding color spatial and color histogram features and performing class prediction. In the same process, we implement a 'heatmap' to better highlight multiple overlapping detections, which are associated with a higher probability that the area actually contains a vehicle. Finally, I applied a threshold to the heatmap to eliminate values at or below 2, i.e. areas where only one or two positive classifications were made, as these are likely false positives. I used the Scipy's `label` function to find the countours of likely individual vehicles. The images below demonstrate that this procedure yielded a good classificaiton and eliminate fals positives. 
+
+![alt text][image6]
